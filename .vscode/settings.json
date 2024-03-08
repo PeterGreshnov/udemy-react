@@ -1,0 +1,7 @@
+{
+    "files.autoSave": "onFocusChange",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[snippets]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    }
+}
