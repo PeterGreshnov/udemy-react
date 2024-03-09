@@ -76,12 +76,12 @@ function Header() {
 function Menu() {
     const pizzas = pizzaData;
     // const pizzas = [];
-    const numPizzas = pizzas.length;
+    const numPizzas = pizzas.length ?? 0;
 
     return (
         <main className="menu">
             <h2>Our Menu</h2>
-            {numPizzas > 0 && (
+            {numPizzas > 0 ? (
                 <ul className="pizzas">
                     {pizzaData.map((pizza) => {
                         return (
@@ -92,6 +92,8 @@ function Menu() {
                         );
                     })}
                 </ul>
+            ) : (
+                <p>Working on menu, come back later.</p>
             )}
             {/* <Pizza
                 name="Pizza Prosciutto"
@@ -137,11 +139,16 @@ function Footer() {
     // else alert("We're closed");
     return (
         <footer className="footer">
-            {isOpen && (
+            {isOpen ? (
                 <div className="order">
                     <p>We're open until {closeHour}:00. Come visit us!</p>
                     <button className="btn">Order</button>
                 </div>
+            ) : (
+                <p>
+                    We're closed. You are welcomed between {openHour}:00 and{" "}
+                    {closeHour}:00
+                </p>
             )}
 
             {/* {new Date().toLocaleTimeString()}. We're currently open */}
