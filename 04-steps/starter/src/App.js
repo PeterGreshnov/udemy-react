@@ -7,18 +7,27 @@ const messages = [
 ];
 
 export default function App() {
+    return (
+        <div>
+            <Steps />
+            <Steps />
+        </div>
+    );
+}
+
+function Steps() {
     const [step, setStep] = useState(1); // hook react function
     const [isOpen, setIsOpen] = useState(true);
     // const [test, setTest] = useState({ name: "Peter" });
 
     // const step = 1;
     const handlePervious = function () {
-        if (step > 1) setStep(step - 1);
+        if (step > 1) setStep((s) => s - 1);
         // setTest({ name: "Peter" });
     };
 
     const handleNext = function () {
-        if (step < 3) setStep(step + 1);
+        if (step < 3) setStep((s) => s + 1);
         // step = step + 1; // that would not trigger UI update;
 
         // Bad practice:
@@ -27,10 +36,10 @@ export default function App() {
     };
 
     return (
-        <>
+        <div>
             <button
                 className="close"
-                onClick={() => setIsOpen(!isOpen)}
+                onClick={() => setIsOpen((is) => !is)}
             >
                 &times;
             </button>
@@ -68,6 +77,6 @@ export default function App() {
                     </div>
                 </div>
             )}
-        </>
+        </div>
     );
 }
