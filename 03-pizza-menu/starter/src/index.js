@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 
 import "./index.css";
+import { flushSync } from "react-dom";
 
 const pizzaData = [
     {
@@ -111,20 +112,20 @@ function Menu() {
     );
 }
 
-function Pizza(props) {
-    console.log(props);
-    if (props.pizzaObj.soldOut) return null;
+function Pizza({ pizzaObj }) {
+    console.log(pizzaObj);
+    if (pizzaObj.soldOut) return null;
 
     return (
         <li className="pizza">
             <img
-                src={props.pizzaObj.photoName}
-                alt={props.pizzaObj.name}
+                src={pizzaObj.photoName}
+                alt={pizzaObj.name}
             ></img>
             <div>
-                <h3>{props.pizzaObj.name}</h3>
-                <p>{props.pizzaObj.ingredients}</p>
-                <span>{props.pizzaObj.price + 2}</span>
+                <h3>{pizzaObj.name}</h3>
+                <p>{pizzaObj.ingredients}</p>
+                <span>{pizzaObj.price + 2}</span>
             </div>
         </li>
     );
@@ -134,7 +135,7 @@ function Footer() {
     const hour = new Date().getHours();
     console.log(hour);
     const openHour = 12;
-    const closeHour = 10;
+    const closeHour = 22;
     const isOpen = hour >= openHour && hour <= closeHour;
     console.log(isOpen);
     // if (hour >= openHour && hour <= closeHour) alert("We're open!");
@@ -153,10 +154,7 @@ function Footer() {
     return (
         <footer className="footer">
             {isOpen ? (
-                <div className="order">
-                    <p>We're open until {closeHour}:00. Come visit us!</p>
-                    <button className="btn">Order</button>
-                </div>
+                <Order closeHour={closeHour} />
             ) : (
                 <p>
                     We're closed. You are welcomed between {openHour}:00 and{" "}
@@ -168,6 +166,15 @@ function Footer() {
         </footer>
     );
     //   return React.createElement("footer", null, "We're currently open");
+}
+
+function Order(props) {
+    return (
+        <div className="order">
+            <p>We're open until {props.closeHour}:00. Come visit us!</p>
+            <button className="btn">Order</button>
+        </div>
+    );
 }
 
 // React v18
