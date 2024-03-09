@@ -83,16 +83,19 @@ function Menu() {
         <main className="menu">
             <h2>Our Menu</h2>
             {numPizzas > 0 ? (
-                <ul className="pizzas">
-                    {pizzaData.map((pizza) => {
-                        return (
-                            <Pizza
-                                pizzaObj={pizza}
-                                key={pizza.name}
-                            />
-                        );
-                    })}
-                </ul>
+                <React.Fragment>
+                    <p>Please, see our fine choise of best pizzas.</p>
+                    <ul className="pizzas">
+                        {pizzaData.map((pizza) => {
+                            return (
+                                <Pizza
+                                    pizzaObj={pizza}
+                                    key={pizza.name}
+                                />
+                            );
+                        })}
+                    </ul>
+                </React.Fragment>
             ) : (
                 <p>Working on menu, come back later.</p>
             )}
