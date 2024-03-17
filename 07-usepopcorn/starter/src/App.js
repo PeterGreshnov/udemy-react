@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { renderIntoDocument } from "react-dom/test-utils";
+import StarRating from "./StarRating";
 
 const tempMovieData = [
     {
@@ -47,7 +47,6 @@ const average = (arr) =>
     arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
 const omdbAapiKey = "c3e2f72c";
-// const query = "die%20hard";
 const tempQuery = "fantomas";
 
 export default function App() {
@@ -299,15 +298,101 @@ function MovieItem({ movie, onSelectMovie }) {
 }
 
 function MovieDetails({ selectedId, onCloseMovie }) {
+    const [movieErr, setMovieErr] = useState("");
+    const [movie, setMovie] = useState({});
+    const [isLoading, setIsLoading] = useState(false);
+
+    const {
+        Title: title,
+        Poster: poster,
+        Year: year,
+        Runtime: runtime,
+        Released: released,
+        imdbRating,
+        Plot: plot,
+        Genre: genre,
+        Director: director,
+        Writer: writer,
+        Actors: actors,
+        Awards: awards,
+        BoxOffice: boxOffice,
+        Country: country,
+        DVD: dvd,
+    } = movie;
+
+    useEffect(() => {
+        async function fetchMovie() {
+            try {
+                setIsLoading(true);
+                const res = await fetch(
+                    `http://www.omdbapi.com/?apikey=${omdbAapiKey}&i=${selectedId}`
+                );
+
+                if (!res.ok)
+                    throw new Error("Something went wrong with fetching");
+
+                const data = await res.json();
+
+                if (data.Response === "False")
+                    throw new Error("No movies found with that query");
+
+                setMovie(data);
+            } catch (err) {
+                console.error(`⛔️  ERROR: ${err.message}`);
+                setMovieErr(err.message);
+            } finally {
+                setIsLoading(false);
+            }
+        }
+
+        if (selectedId) fetchMovie();
+    }, [selectedId]);
     return (
         <div className="details">
-            <button
-                className="btn-back"
-                onClick={onCloseMovie}
-            >
-                &larr;
-            </button>
-            {selectedId}
+            {isLoading && <Loader />}
+            {!isLoading && !movieErr && (
+                <>
+                    <header>
+                        <button
+                            className="btn-back"
+                            onClick={onCloseMovie}
+                        >
+                            &larr;
+                        </button>
+                        <img
+                            src={poster}
+                            alt={`${title} poster`}
+                        />
+                        <div className="details-overview">
+                            <h2>{title}</h2>
+                            <p>{country}</p>
+                            <p>{genre}</p>
+                            <p>
+                                {released} - {runtime}
+                            </p>
+                            <p>
+                                <span>⭐️</span>
+                                <span>{imdbRating} IMDB rating</span>
+                            </p>
+                        </div>
+                    </header>
+                    <section>
+                        <div className="rating">
+                            <StarRating
+                                maxRating={10}
+                                size={24}
+                                onSetRating={() => {}}
+                            />
+                        </div>
+                        <p>
+                            <em>{plot}</em>
+                        </p>
+                        <p>Starring {actors}</p>
+                        <p>Directed by {director}</p>
+                    </section>
+                </>
+            )}
+            {movieErr && <ErrorMessage message={movieErr} />}
         </div>
     );
 }
