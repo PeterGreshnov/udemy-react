@@ -80,6 +80,43 @@ function CitiesProvider({ children }) {
     }
   }
 
+  async function createCity(newCity) {
+    try {
+      setIsLoading(true);
+      setError(null);
+      console.log("API call");
+
+      const res = await fetch(`${BASE_URL}/cities`, {
+        method: "POST",
+        body: JSON.stringify(newCity),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include", // <-- this is the key to include the cookie in the request!
+        mode: "cors", // <-- this is the key to include the cookie in the request!
+        cache: "no-cache", // <-- this is the key to include the cookie in the request!
+        redirect: "follow", // <-- this is the key to include the cookie in the request!
+        referrer: "no-referrer", // <-- this is the key to include the cookie in the request!
+      });
+
+      if (!res.ok) throw new Error("Something went wrong with fetching");
+
+      const data = await res.json();
+
+      console.log(data);
+      // And update the list of cities (since it is only fetched once):
+      setCities((cities) => [...cities, data]);
+    } catch (err) {
+      console.log("error");
+      if (err.name !== "AbortError") {
+        console.log(`⛔️⛔️⛔️ ERROR: ${err.message}`);
+        setError(err.message);
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   return (
     <CitiesContext.Provider
       value={{
@@ -88,6 +125,7 @@ function CitiesProvider({ children }) {
         error,
         currentCity,
         getCity,
+        createCity,
       }}
     >
       {children}
