@@ -37,52 +37,16 @@
       "id": 98443197
     },
     {
-      "cityName": "Montgivray",
-      "country": "France",
-      "emoji": "🇫🇷",
-      "date": "2024-03-30T05:52:17.721Z",
-      "notes": "TEST NOTES!",
+      "cityName": "Dushanbe",
+      "country": "Tajikistan",
+      "emoji": "🇹🇯",
+      "date": "2024-03-30T07:49:16.747Z",
+      "notes": "zzzz",
       "position": {
-        "lat": "46.58906908309185",
-        "lng": "2.0214843750000004"
-      },
-      "id": 98443198
-    },
-    {
-      "cityName": "Algiers",
-      "country": "Algeria",
-      "emoji": "🇩🇿",
-      "date": "2024-03-30T05:57:42.749Z",
-      "notes": "asfsdf",
-      "position": {
-        "lat": "36.75759058319245",
-        "lng": "3.04046630859375"
+        "lat": "38.56105262446978",
+        "lng": "68.81835937500001"
       },
       "id": 98443199
-    },
-    {
-      "cityName": "Boufarik",
-      "country": "Algeria",
-      "emoji": "🇩🇿",
-      "date": "2024-03-30T05:58:05.136Z",
-      "notes": "fgvbnvbc",
-      "position": {
-        "lat": "36.57473248336113",
-        "lng": "2.9168701171875004"
-      },
-      "id": 98443200
-    },
-    {
-      "cityName": "Prague",
-      "country": "Czechia",
-      "emoji": "🇨🇿",
-      "date": "2024-03-30T06:06:51.582Z",
-      "notes": "cvbvvb",
-      "position": {
-        "lat": "50.08042691019668",
-        "lng": "14.435112609491577"
-      },
-      "id": 98443201
     }
   ]
 }
